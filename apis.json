@@ -1,0 +1,34 @@
+apis
+
+harshith.in/project/url.php?url=
+    to fetch reviews
+
+/updatelistings
+    fetches the urls of products
+
+/updatecategoty
+    /updatecategory/mobiles
+    /updatecategory/television
+    /updatecategory/refrigirator
+    /updatecategory/camera
+    /updatecategory/laptop
+    /updatecategory/tablets
+    /updatecategory/watches
+
+/deletecategory
+    /deletecategory/mobiles
+    /deletecategory/television
+    /deletecategory/refrigirator
+    /deletecategory/camera
+    /deletecategory/laptop
+    /deletecategory/tablets
+    /deletecategory/watches
+
+/product
+    /product/mobiles
+    /product/television
+    /product/refrigirator
+    /product/camera
+    /product/laptop
+    /product/tablets
+    /product/watches

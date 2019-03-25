@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>product listing api</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12"></div>
+    <h1 class="text-center">Product Listing API</h1>
+    </div>
+    </div>
+    <div class="row">
+      <% listings.forEach(function(listing){ %>
+        <div class="col-md-4 mb-2">
+          <div class="card text-center bg-light">
+            <div class="card-body">
+              <%= listing.category_name %>
+            </div>
+          </div>
+        </div>
+    <% }); %>
+    </div>
+  </div>
+  </body>
+</html>
