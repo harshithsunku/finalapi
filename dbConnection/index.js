@@ -6,6 +6,9 @@ var connection = mysql.createConnection({
     database:"fk",
 });
 connection.connect();
+connection.query("SET GLOBAL innodb_file_format=Barracuda;");
+connection.query("SET GLOBAL innodb_file_per_table=on;");
+connection.query("SET GLOBAL innodb_large_prefix=on;");
 connection.query("drop table if exists productFeedListing");
 connection.query(`create table productFeedListing(
     category_id int(10) AUTO_INCREMENT,
@@ -38,6 +41,21 @@ connection.query(`create table mobiles(
     p_id varchar(200) UNIQUE,
     p_category varchar(20),
     p_title varchar(1000),
+    selling_price  int(20),
+    selling_price_currency varchar(20),
+    model_number varchar(100),
+    model_name varchar(200),
+    sim_type varchar(20),
+    display_size varchar(25),
+    resolution varchar(25), 
+    operating_system varchar(25), 
+    processor varchar(25), 
+    rom varchar(10), 
+    ram varchar(10), 
+    p_cam varchar(20), 
+    s_cam varchar(20),
+    a_jack varchar(25), 
+    battery varchar(25),
     p_img_small varchar(1000),
     p_img_medium varchar(1000),
     p_img_large varchar(1000),

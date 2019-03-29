@@ -8,7 +8,7 @@ router.get('/televisions/:price',function(req,res,next){
     var tprice = parseInt(req.params.price);
     console.log(typeof(tprice));
     console.log(tprice);
-    dbConnection.query("select * from televisions WHERE p_retail_price >= '" + tprice + "'",function(error,results,fields){
+    dbConnection.query("select * from televisions WHERE selling_price >= '" + tprice + "'",function(error,results,fields){
         res.render('products',{
             title:"products in televisions",
             products:results
@@ -17,7 +17,7 @@ router.get('/televisions/:price',function(req,res,next){
 });
 router.get('/mobiles/:price',function(req,res,next){
     var tprice = parseInt(req.params.price);
-    dbConnection.query("select * from mobiles WHERE p_retail_price >= '" + tprice + "'",function(error,results,fields){
+    dbConnection.query("select * from mobiles WHERE selling_price >= '" + tprice + "'",function(error,results,fields){
         res.render('products',{
             title:"products in mobiles",
             products:results
