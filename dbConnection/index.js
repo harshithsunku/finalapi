@@ -20,7 +20,7 @@ connection.query(`create table productFeedListing(
 connection.query("drop table if exists televisions");
 connection.query(`create table televisions(
     id int(10) AUTO_INCREMENT,
-    p_id varchar(200) UNIQUE,
+    p_id varchar(200),
     p_category varchar(20),
     p_title varchar(1000),
     selling_price  int(20),
@@ -85,12 +85,11 @@ connection.query(`create table mobiles(
 connection.query("drop table if exists refrigerator");
 connection.query(`create table refrigerator(
     id int(10) AUTO_INCREMENT,
-    p_id varchar(200) UNIQUE,
+    p_id varchar(200),
     p_category varchar(20),
     p_title varchar(1000),
     selling_price  int(20),
     selling_price_currency varchar(20),
-
     type varchar(100),
     defrosting_type varchar(100),
     compressor_type varchar(100),
@@ -106,7 +105,6 @@ connection.query(`create table refrigerator(
     chlid_lock varchar(20),
     wheel_support varchar(20),
     warranty varchar(100),
-
     p_img_small varchar(1000),
     p_img_medium varchar(1000),
     p_img_large varchar(1000),
@@ -159,9 +157,25 @@ connection.query(`create table cameras(
 connection.query("drop table if exists laptops");
 connection.query(`create table laptops(
     id int(10) AUTO_INCREMENT,
-    p_id varchar(200) UNIQUE,
+    p_id varchar(200),
     p_category varchar(20),
     p_title varchar(1000),
+    model_name varchar(200), 
+    model_number varchar(100),
+    series varchar(100), 
+    type varchar(100), 
+    ded_gra_mem_type varchar(100), 
+    ded_gra_mem_cap varchar(100), 
+    processor varchar(100), 
+    processor_gen varchar(100), 
+    ssd varchar(100),
+    hdd varchar(100), 
+    ram varchar(100), 
+    ram_type varchar(100), 
+    gra_pro varchar(100), 
+    operating_system varchar(100),
+    touch varchar(100), 
+    screen_size varchar(100),
     p_img_small varchar(1000),
     p_img_medium varchar(1000),
     p_img_large varchar(1000),

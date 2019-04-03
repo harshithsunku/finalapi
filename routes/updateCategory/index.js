@@ -156,9 +156,6 @@ getCategoryUrl.then(function(getUrl){
 
 });
 
-
-//
-
 router.get('/mobiles', function(req,res,next){
     var col , model_name , model_number , sim_type , display_size , resolution , operating_system, processor , rom , ram , p_cam , s_cam,a_jack , battery;
     var getCategoryUrl = new Promise(function(resolve,reject){
@@ -693,32 +690,132 @@ getCategoryUrl.then(function(getUrl){
 
 });
 
-router.get('/laptops', function(req,res,next){
+// router.get('/laptops', function(req,res,next){
+//     var model_name , model_number , series , type , ded_gra_mem_type , ded_gra_mem_cap , processor , processor_gen , ssd , hdd , ram , ram_type , gra_pro , operating_system ,touch , screen_size;
+//     var getCategoryUrl = new Promise(function(resolve,reject){
+//         dbConnection.query("select * from productfeedlisting",function(error,results,fields){
+//             results.forEach(function(result){
+//                 if('laptops' == result.category_name)
+//                     resolve(result.getUrl);
+//             });
+//         });
+//     });
 
-    var getCategoryUrl = new Promise(function(resolve,reject){
-        dbConnection.query("select * from productfeedlisting",function(error,results,fields){
-            results.forEach(function(result){
-                if('laptops' == result.category_name)
-                    resolve(result.getUrl);
+// getCategoryUrl.then(function(getUrl){
+//     return new Promise(function(resolve,reject){
+//         var insertProductsFromUrl = function(url){
+//             if(url == null){
+//                 console.log(url);
+//             }
+//             fkClient.getProductsFeed(url).then(function(data){
+//             var json_data = JSON.parse(data.body);
+//             // res.send(json_data);
+//             json_data.products.forEach(function(product){
+router.get('/laptops', function(req,res,next){
+    var model_name , model_number , series , type , ded_gra_mem_type , ded_gra_mem_cap , processor , processor_gen , ssd , hdd , ram , ram_type , gra_pro , operating_system ,touch , screen_size;
+        var getCategoryUrl = new Promise(function(resolve,reject){
+            dbConnection.query("select * from productfeedlisting",function(error,results,fields){
+                results.forEach(function(result){
+                    if('laptops' == result.category_name)
+                        resolve(result.getUrl);
+                });
             });
         });
-    });
-
-getCategoryUrl.then(function(getUrl){
-    return new Promise(function(resolve,reject){
-        var insertProductsFromUrl = function(url){
-            if(url == null){
-                console.log(url);
-            }
-            fkClient.getProductsFeed(url).then(function(data){
-            var json_data = JSON.parse(data.body);
-            // res.send(json_data);
-            json_data.products.forEach(function(product){
-
+    
+    getCategoryUrl.then(function(getUrl){
+        return new Promise(function(resolve,reject){
+            var insertProductsFromUrl = function(url){
+                if(url == null){
+                    console.log(url);
+                }
+                fkClient.getProductsFeed(url).then(function(data){
+                var json_data = JSON.parse(data.body);
+                // res.send(json_data);
+                json_data.products.forEach(function(product){
+                if(product.categorySpecificInfoV1.specificationList){
+                    product.categorySpecificInfoV1.specificationList.forEach(function(eachSpec){
+                        eachSpec['values'].forEach(function(elem){
+                            if(elem['key']==='Model Number'){
+                                // console.log(elem['value'][0]);
+                                model_number = elem['value'][0];
+                            }
+                            else if(elem['key']==='Model Name'){
+                                model_name = elem['value'][0];
+                            }
+                            
+                            else if(elem['key']==='Series'){
+                                series = elem['value'][0];
+                            }
+                            else if(elem['key']==='Type'){
+                                type = elem['value'][0];
+                            }
+                            
+                            else if(elem['key']==='Dedicated Graphic Memory Type'){
+                                ded_gra_mem_type = elem['value'][0];
+                            }
+                            
+                            else if(elem['key']==='Dedicated Graphic Memory Capacity'){
+                                ded_gra_mem_cap = elem['value'][0];
+                            }
+                            
+                            else if(elem['key']==='Processor Name'){
+                                process = elem['value'][0];
+                            }
+                            
+                            else if(elem['key']==='Processor Generation'){
+                                processor_gen = elem['value'][0];
+                            }
+                            else if(elem['key']==='SSD'){
+                                ssd = elem['value'][0];
+                            }
+                            else if(elem['key']==='RAM'){
+                                ram = elem['value'][0];
+                            }
+                            else if(elem['key']==='HDD Capacity'){
+                                hdd = elem['value'][0];
+                            }
+                            else if(elem['key']==='RAM Type'){
+                                ram_type = elem['value'][0];
+                            }
+                            else if(elem['key']==='Graphic Processor'){
+                                gra_pro = elem['value'][0];
+                            }
+                            else if(elem['key']==='Operating System'){
+                                operating_system = elem['value'][0];
+                            }
+                            else if(elem['key']==='Touchscreen'){
+                                touch= elem['value'][0];
+                            }
+                            else if(elem['key']==='Screen Size'){
+                                screen_size= elem['value'][0];
+                                screen_size = 0.4 * parseFloat(screen_size);  
+                                screen_size = screen_size.toPrecision(2);
+                            }
+                        });
+                    });
+                }
                 dbConnection.query(`insert into laptops(
                     p_id,
                     p_category,
                     p_title,
+                    selling_price,
+                    selling_price_currency,
+                    model_name, 
+                    model_number,
+                    series, 
+                    type, 
+                    ded_gra_mem_type, 
+                    ded_gra_mem_cap, 
+                    processor, 
+                    processor_gen, 
+                    ssd,
+                    hdd, 
+                    ram, 
+                    ram_type, 
+                    gra_pro, 
+                    operating_system,
+                    touch, 
+                    screen_size,
                     p_img_small,
                     p_img_medium,
                     p_img_large,
@@ -732,6 +829,24 @@ getCategoryUrl.then(function(getUrl){
                         ${dbConnection.escape(product.productBaseInfoV1.productId)},
                         ${dbConnection.escape('laptops')},
                         ${dbConnection.escape(product.productBaseInfoV1.title)},
+                        ${dbConnection.escape(product.productBaseInfoV1.flipkartSellingPrice.amount)},
+                        ${dbConnection.escape(product.productBaseInfoV1.flipkartSellingPrice.currency)},
+                        ${dbConnection.escape(model_name)},
+                        ${dbConnection.escape(model_number)},
+                        ${dbConnection.escape(series)},
+                        ${dbConnection.escape(type)},
+                        ${dbConnection.escape(ded_gra_mem_type)},
+                        ${dbConnection.escape(ded_gra_mem_cap)},
+                        ${dbConnection.escape(processor)},
+                        ${dbConnection.escape(processor_gen)},
+                        ${dbConnection.escape(ssd)},
+                        ${dbConnection.escape(hdd)},
+                        ${dbConnection.escape(ram)},
+                        ${dbConnection.escape(ram_type)},
+                        ${dbConnection.escape(gra_pro)},
+                        ${dbConnection.escape(operating_system)},
+                        ${dbConnection.escape(touch)},
+                        ${dbConnection.escape(screen_size)},
                         ${dbConnection.escape(product.productBaseInfoV1.imageUrls['200x200'])},
                         ${dbConnection.escape(product.productBaseInfoV1.imageUrls['400x400'])},
                         ${dbConnection.escape(product.productBaseInfoV1.imageUrls['800x800'])},
@@ -915,12 +1030,12 @@ getCategoryUrl.then(function(getUrl){
 
 });
 
-router.get('/mobiles', function(req,res,next){
+router.get('/laptops', function(req,res,next){
 
     var getCategoryUrl = new Promise(function(resolve,reject){
         dbConnection.query("select * from productfeedlisting",function(error,results,fields){
             results.forEach(function(result){
-                if('mobiles' == result.category_name)
+                if('laptops' == result.category_name)
                     resolve(result.getUrl);
             });
         });
@@ -993,4 +1108,9 @@ getCategoryUrl.then(function(getUrl){
 //     dbConnection.query("delete from productfeed");
 //     res.send("deleted listings");
 //   });
+router.get('/test' , function(req , res , next){
+fkClient.getProductsFeed("https://affiliate-api.flipkart.net/affiliate/1.0/feeds/gadsgear/category/6bo-b5g.json?expiresAt=1554307721943&sig=056c7fa862832077ead950ff9ed1cbeb").then(function(value){
+        res.send(value.body);
+    });
+});
 module.exports = router;
