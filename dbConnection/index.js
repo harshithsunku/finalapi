@@ -52,7 +52,7 @@ connection.query(`create table televisions(
 connection.query("drop table if exists mobiles");
 connection.query(`create table mobiles(
     id int(10) AUTO_INCREMENT,
-    p_id varchar(200) UNIQUE,
+    p_id varchar(200),
     p_category varchar(20),
     p_title varchar(1000),
     selling_price  int(20),
@@ -120,7 +120,7 @@ connection.query(`create table refrigerator(
 connection.query("drop table if exists cameras");
 connection.query(`create table cameras(
     id int(10) AUTO_INCREMENT,
-    p_id varchar(200) UNIQUE,
+    p_id varchar(200),
     p_category varchar(20),
     p_title varchar(1000),
     selling_price  int(20),
