@@ -90,7 +90,7 @@ router.get('/televisions/:price/:size/:smart/:type/:curve/:hdmi',function(req,re
         var hdmi = 4;
     }
     console.log(sm);
-    dbConnection.query("select * from televisions as t , tv_data as tv WHERE t.p_id = tv.p_id AND  selling_price BETWEEN '"+p_min+"' AND '" + p_max + "' AND display_size BETWEEN '"+min+"' AND '"+max+"'  ORDER BY tv.score DESC ",function(error,results,fields){
+    dbConnection.query("select DISTINCT * from televisions as t , tv_data as tv WHERE t.p_id = tv.p_id AND  selling_price BETWEEN '"+p_min+"' AND '" + p_max + "' AND display_size BETWEEN '"+min+"' AND '"+max+"'  ORDER BY tv.score DESC LIMIT 5",function(error,results,fields){
         res.render('products',{
             title:"products in televisions",
             products:results
@@ -206,7 +206,7 @@ router.get('/mobiles/:price/:ram/:screen/:internal/:battery',function(req,res,ne
     }
 
     // console.log(sm);
-    dbConnection.query("select * from mobiles as m , mobile_data as md WHERE m.p_id = md.p_id AND  selling_price BETWEEN '"+p_min+"' AND '" + p_max + "' AND display_size BETWEEN '"+min+"' AND '"+max+"'  ORDER BY md.score DESC ",function(error,results,fields){
+    dbConnection.query("select DISTINCT * from mobiles as m , mobile_data as md WHERE m.p_id = md.p_id AND  selling_price BETWEEN '"+p_min+"' AND '" + p_max + "' AND display_size BETWEEN '"+min+"' AND '"+max+"'  ORDER BY md.score DESC LIMIT 5",function(error,results,fields){
         res.render('products',{
             title:"products in mobiles",
             products:results

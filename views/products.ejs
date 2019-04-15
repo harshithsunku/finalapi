@@ -144,7 +144,6 @@ h4 {
             </div>
           </div>
         </div> -->
-        
         <table>
           <tr>
             <th>
@@ -153,7 +152,7 @@ h4 {
             </th>
             <th>
               <br>
-              <button class="button"><a href="http://127.0.0.1/working/fetch.php?p_id=<%= product.p_id%>&category=<%= product.p_category%>"><font color="white">View More Info</font></a></button>
+              <button class="button"><a href="http://127.0.0.1/working/ori.php?p_id=<%= product.p_id%>&category=<%= product.p_category%>" target="_blank"><font color="white">View More Info</font></a></button>
               <br>
               <%= product.selling_price %> <%= product.selling_price_currency %> 
               <!-- <h4><%= product.p_retail_price %></h4> -->
@@ -163,6 +162,14 @@ h4 {
           </tr>
         </table>
     <% }); %>
+    <br>
+    <button class="button">
+      <a href="http://127.0.0.1/working/compare.php?p_id0=<%= products[0].p_id %>&p_id1=<%= products[1].p_id %>&p_id2=<%= products[2].p_id %>&p_id3=<%= products[3].p_id %>&p_id4=<%= products[4].p_id %>&category=<%= products[0].p_category%>" target="_blank">
+        <font color="white">
+          Compare
+        </font>
+      </a>
+    </button>
     <!-- </div> -->
   <!-- </div> -->
   </body>
